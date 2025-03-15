@@ -1,15 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { AuthLayout } from "@/components/layouts";
 import { Input } from "@/components/ui";
 
 export default function CreateNewPasswordPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
-  // const emailParam = searchParams?.get('email') || '';
   
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
