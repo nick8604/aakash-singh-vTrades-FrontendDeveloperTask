@@ -60,11 +60,26 @@ export default function LoginContent() {
 
   const handleGoogleSignIn = async () => {
     try {
-      await signIn('google', { 
+      console.log('Starting Google sign-in process');
+      
+      // Use redirect: false to get the result and diagnose issues
+      const result = await signIn('google', { 
         callbackUrl: '/login?success=google',
-        redirect: true
+        redirect: false
       });
-    } catch {
+      
+      console.log('Google sign-in result:', result);
+      
+      if (result?.error) {
+        console.error('Google sign-in error:', result.error);
+        setErrorMessage(`Authentication failed: ${result.error}`);
+        setShowLoginError(true);
+      } else if (result?.url) {
+        // Manually redirect to the URL
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error('Google sign-in exception:', error);
       setErrorMessage('Google sign-in failed. Please try again.');
       setShowLoginError(true);
     }
@@ -72,11 +87,26 @@ export default function LoginContent() {
 
   const handleMicrosoftSignIn = async () => {
     try {
-      await signIn('microsoft', { 
+      console.log('Starting Microsoft sign-in process');
+      
+      // Use redirect: false to get the result and diagnose issues
+      const result = await signIn('microsoft', { 
         callbackUrl: '/login',
-        redirect: true
+        redirect: false
       });
-    } catch {
+      
+      console.log('Microsoft sign-in result:', result);
+      
+      if (result?.error) {
+        console.error('Microsoft sign-in error:', result.error);
+        setErrorMessage(`Authentication failed: ${result.error}`);
+        setShowLoginError(true);
+      } else if (result?.url) {
+        // Manually redirect to the URL
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error('Microsoft sign-in exception:', error);
       setErrorMessage('Microsoft sign-in failed. Please try again.');
       setShowLoginError(true);
     }

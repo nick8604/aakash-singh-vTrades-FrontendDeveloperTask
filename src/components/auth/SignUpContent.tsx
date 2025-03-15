@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { AuthLayout } from '@/components/layouts';
 import { Input } from '@/components/ui';
+import { signIn } from "next-auth/react";
 
 export default function SignUpContent() {
   const router = useRouter();
@@ -16,6 +17,7 @@ export default function SignUpContent() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState('');
+  const [showSignupSuccess, setShowSignupSuccess] = useState(false);
 
   const bulletPoints = [
     'Employee Management: View detailed profiles, track performance, and manage attendance.',
@@ -86,19 +88,65 @@ export default function SignUpContent() {
     // Simulate API call to register
     setTimeout(() => {
       setIsSubmitting(false);
-      // Redirect to login page after successful registration
-      router.push('/login');
+      // Show success popup instead of redirecting immediately
+      setShowSignupSuccess(true);
     }, 1000);
   };
 
-  const handleGoogleSignIn = () => {
-    // Will redirect to Google OAuth
+  const handleCloseSuccessPopup = () => {
+    setShowSignupSuccess(false);
+    // Redirect to login page after closing the popup
     router.push('/login');
   };
 
-  const handleMicrosoftSignIn = () => {
-    // Will redirect to Microsoft OAuth
-    router.push('/login');
+  const handleGoogleSignIn = async () => {
+    try {
+      console.log('Starting Google sign-in process from signup');
+      
+      // For signup, we'll still go through login but mark it as from signup
+      const result = await signIn('google', { 
+        callbackUrl: '/login?from=signup&success=google',
+        redirect: false
+      });
+      
+      console.log('Google sign-in result:', result);
+      
+      if (result?.error) {
+        console.error('Google sign-in error:', result.error);
+        setError(`Authentication failed: ${result.error}`);
+      } else if (result?.url) {
+        // Manually redirect to the URL
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error('Google sign-in exception:', error);
+      setError('Google sign-in failed. Please try again.');
+    }
+  };
+
+  const handleMicrosoftSignIn = async () => {
+    try {
+      console.log('Starting Microsoft sign-in process from signup');
+      
+      // For signup, we'll still go through login but mark it as from signup
+      const result = await signIn('microsoft', { 
+        callbackUrl: '/login?from=signup',
+        redirect: false
+      });
+      
+      console.log('Microsoft sign-in result:', result);
+      
+      if (result?.error) {
+        console.error('Microsoft sign-in error:', result.error);
+        setError(`Authentication failed: ${result.error}`);
+      } else if (result?.url) {
+        // Manually redirect to the URL
+        window.location.href = result.url;
+      }
+    } catch (error) {
+      console.error('Microsoft sign-in exception:', error);
+      setError('Microsoft sign-in failed. Please try again.');
+    }
   };
 
   return (
@@ -107,6 +155,30 @@ export default function SignUpContent() {
       description="Manage your workspace seamlessly. Sign up to continue."
       bulletPoints={bulletPoints}
     >
+      {showSignupSuccess && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-50">
+          <div className="bg-[#171923] p-8 rounded-lg max-w-md w-full shadow-xl">
+            <div className="flex flex-col items-center">
+              <div className="h-16 w-16 bg-green-500 rounded-full flex items-center justify-center mb-4">
+                <svg className="h-8 w-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="3" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-semibold text-white mb-2">Sign Up Successful!</h2>
+              <p className="text-gray-400 text-center mb-6">
+                Your account has been created successfully. You can now sign in to access your account.
+              </p>
+              <button
+                className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg focus:outline-none transition-colors"
+                onClick={handleCloseSuccessPopup}
+              >
+                Continue to Login
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {error && (
         <div className="bg-red-500 bg-opacity-10 border border-red-500 text-red-500 px-4 py-3 rounded-lg text-sm mb-4">
           {error}
