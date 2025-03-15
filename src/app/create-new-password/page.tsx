@@ -9,7 +9,7 @@ import { Input } from "@/components/ui";
 export default function CreateNewPasswordPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const emailParam = searchParams?.get('email') || '';
+  // const emailParam = searchParams?.get('email') || '';
   
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
