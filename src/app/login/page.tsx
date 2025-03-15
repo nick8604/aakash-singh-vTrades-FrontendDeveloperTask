@@ -3,14 +3,13 @@
 
 import { useState, useEffect } from "react";
 import { signIn, useSession } from "next-auth/react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { AuthLayout } from '@/components/layouts';
 import { Input, Checkbox, Divider } from '@/components/ui';
 
 export default function LoginPage() {
-  const router = useRouter();
   const { data: session, status } = useSession();
   const searchParams = useSearchParams();
   const error = searchParams?.get('error');
@@ -18,7 +17,7 @@ export default function LoginPage() {
   
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const [email, setEmail] = useState('');
+  const [emailValue, setEmailValue] = useState('');
   const [password, setPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showLoginSuccess, setShowLoginSuccess] = useState(false);
@@ -45,7 +44,7 @@ export default function LoginPage() {
     e.preventDefault();
     
     // Validate form fields
-    if (!email || !password) {
+    if (!emailValue || !password) {
       setErrorMessage('Please enter both email and password.');
       setShowLoginError(true);
       return;
@@ -66,7 +65,7 @@ export default function LoginPage() {
         callbackUrl: '/login?success=google',
         redirect: true
       });
-    } catch (error) {
+    } catch {
       setErrorMessage('Google sign-in failed. Please try again.');
       setShowLoginError(true);
     }
@@ -78,7 +77,7 @@ export default function LoginPage() {
         callbackUrl: '/login',
         redirect: true
       });
-    } catch (error) {
+    } catch {
       setErrorMessage('Microsoft sign-in failed. Please try again.');
       setShowLoginError(true);
     }
@@ -176,8 +175,8 @@ export default function LoginPage() {
         <Input
           label="Email Address"
           type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={emailValue}
+          onChange={(e) => setEmailValue(e.target.value)}
           placeholder="navinash@workhive.com"
           required
         />
@@ -236,7 +235,7 @@ export default function LoginPage() {
       </div>
       
       <p className="mt-8 text-center text-sm text-gray-400">
-        Don't have an account?{' '}
+        Don&apos;t have an account?{' '}
         <Link href="/signup" className="text-purple-400 hover:text-purple-300 font-medium">
           Sign Up
         </Link>

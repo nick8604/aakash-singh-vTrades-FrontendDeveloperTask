@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
   return (
     <AuthLayout
       title="Forgot Password"
-      description="Enter your email and we'll send you a link to reset your password."
+      description="Enter your email and we&apos;ll send you a link to reset your password."
       bulletPoints={bulletPoints}
     >
       {showEmailSent ? (
@@ -49,7 +49,7 @@ export default function ForgotPasswordPage() {
               </div>
               <h2 className="text-xl font-semibold text-white mb-2">Email Sent!</h2>
               <p className="text-gray-400 text-center mb-6">
-                We've sent an OTP to your email address. Please check your inbox and enter the code on the next screen.
+                We&apos;ve sent an OTP to your email address. Please check your inbox and enter the code on the next screen.
               </p>
               <button
                 className="w-full bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg focus:outline-none transition-colors"

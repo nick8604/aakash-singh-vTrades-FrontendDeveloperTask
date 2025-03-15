@@ -7,7 +7,7 @@ import { AuthLayout } from "@/components/layouts";
 export default function VerifyOTPPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams?.get('email') || 'companyadmin@gmail.com';
+  const emailValue = searchParams?.get('email') || 'companyadmin@gmail.com';
   
   const [otpValues, setOtpValues] = useState(['', '', '', '', '']);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -86,7 +86,7 @@ export default function VerifyOTPPage() {
     // Check if OTP is one of the hardcoded values (00000 or 11111)
     if (otpString === "00000" || otpString === "11111") {
       // Valid OTP, redirect to create new password page
-      router.push("/create-new-password?email=" + encodeURIComponent(email));
+      router.push("/create-new-password?email=" + encodeURIComponent(emailValue));
     } else {
       // Invalid OTP
       setError("Invalid OTP. Please try again.");
@@ -107,7 +107,7 @@ export default function VerifyOTPPage() {
   return (
     <AuthLayout
       title="Enter OTP"
-      description={`Enter the OTP that we have sent to your email address ${email}.`}
+      description={`Enter the OTP that we have sent to your email address ${emailValue}.`}
       bulletPoints={bulletPoints}
     >
       <form onSubmit={handleSubmit} className="space-y-8">

@@ -9,7 +9,7 @@ import { Input } from "@/components/ui";
 export default function CreateNewPasswordPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const email = searchParams?.get('email') || '';
+  const emailParam = searchParams?.get('email') || '';
   
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -95,7 +95,7 @@ export default function CreateNewPasswordPage() {
   return (
     <AuthLayout
       title="Create New Password"
-      description="Choose a strong and secure password to keep your account safe. Make sure it's easy for you to remember, but hard for others to guess!"
+      description="Choose a strong and secure password to keep your account safe. Make sure it&apos;s easy for you to remember, but hard for others to guess!"
       bulletPoints={bulletPoints}
     >
       {showSuccess ? (

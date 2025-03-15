@@ -3,6 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export default function DashboardPage() {
   const { data: session, status } = useSession();
@@ -29,11 +30,15 @@ export default function DashboardPage() {
           <h1 className="text-2xl font-bold">WORKHIVE</h1>
           <div className="flex items-center gap-4">
             {session?.user?.image && (
-              <img
-                src={session.user.image}
-                alt={session.user.name || 'User'}
-                className="w-10 h-10 rounded-full"
-              />
+              <div className="relative w-10 h-10 rounded-full overflow-hidden">
+                <Image
+                  src={session.user.image}
+                  alt={session.user.name || 'User'}
+                  fill
+                  sizes="40px"
+                  className="object-cover"
+                />
+              </div>
             )}
             <div>
               <p className="font-medium">{session?.user?.name}</p>
