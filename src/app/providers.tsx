@@ -8,5 +8,10 @@ interface ProvidersProps {
 }
 
 export function Providers({ children }: ProvidersProps) {
+  // Disable NextAuth from loading during static generation/server-side rendering
+  if (typeof window === 'undefined') {
+    return <>{children}</>;
+  }
+  
   return <SessionProvider>{children}</SessionProvider>;
 } 
