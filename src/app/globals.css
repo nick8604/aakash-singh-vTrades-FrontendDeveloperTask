@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #17181E;
+  --input-bg: #1D1E26;
+  --input-border: #30303D;
+  --paragraph: #DADADA;
+  --heading: #FFFFFF;
+  --primary: #8854C0;
+  --primary-rgb: 136, 84, 192;
+  --error-rgb: 255, 77, 79;
+  --separator: #272727;
+  --error: #FF4D4F;
+  --success: #52C41A;
+  --foreground: var(--heading);
 }
 
 @theme inline {
@@ -13,9 +23,14 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #17181E;
+    --foreground: var(--heading);
   }
+}
+
+html, body {
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -28,7 +43,7 @@ body {
 
 /* Focus styles */
 *:focus-visible {
-  outline: 2px solid #9F7AEA;
+  outline: 2px solid var(--primary);
   outline-offset: 2px;
 }
 
@@ -39,8 +54,24 @@ body {
   background-position: center;
 }
 
+/* Full screen auth layout */
+.min-h-screen.h-screen {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  background-color: var(--background);
+}
+
+/* Ensure scrollable content on the right side */
+.overflow-y-auto {
+  max-height: 100vh;
+  overflow-y: auto;
+  background-color: var(--background);
+}
+
 /* Rounded edges for auth layout */
-.flex.h-screen.bg-\[\#171923\] {
+.flex.h-screen {
   border-radius: 0;
   overflow: hidden;
 }

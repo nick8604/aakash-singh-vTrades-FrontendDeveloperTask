@@ -33,7 +33,8 @@ const nextConfig = {
     '**/verify-otp/**',
     '**/create-new-password/**',
     '**/login/**',
-    '**/forgot-password/**'
+    '**/forgot-password/**',
+    '**/auth-debug/**'
   ],
 }
 

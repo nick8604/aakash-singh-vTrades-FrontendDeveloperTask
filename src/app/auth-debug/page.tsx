@@ -10,19 +10,19 @@ const LoadingSpinner = () => (
   </div>
 );
 
-// Dynamically import the ForgotPassword content with SSR disabled
-const ForgotPasswordContent = dynamic(
-  () => import('@/components/auth/ForgotPasswordContent'),
+// Dynamically import the AuthDebugContent with SSR disabled
+const AuthDebugContent = dynamic(
+  () => import('../../components/auth/AuthDebugContent'),
   { 
     ssr: false,
     loading: () => <LoadingSpinner />
   }
 );
 
-export default function ForgotPasswordPage() {
+export default function AuthDebugPage() {
   return (
     <Suspense fallback={<LoadingSpinner />}>
-      <ForgotPasswordContent />
+      <AuthDebugContent />
     </Suspense>
   );
 } 

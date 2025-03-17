@@ -18,7 +18,7 @@ export function Divider({ text, className = '' }: DividerProps) {
         <div className="w-full border-t border-gray-700"></div>
       </div>
       <div className="relative flex justify-center text-xs">
-        <span className="px-2 text-gray-500 bg-[#171923]">{text}</span>
+        <span className="px-2 text-gray-500 ">{text}</span>
       </div>
     </div>
   );

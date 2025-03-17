@@ -47,7 +47,7 @@ export function SuccessNotification({
         </div>
         
         <h2 className="text-xl font-bold text-white mb-2">{title}</h2>
-        <p className="text-gray-400 mb-8">{message}</p>
+        <p className="text-[#DADADA] mb-8">{message}</p>
         
         <button
           onClick={handleClick}
