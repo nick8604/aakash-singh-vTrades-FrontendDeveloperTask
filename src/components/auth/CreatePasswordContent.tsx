@@ -123,7 +123,7 @@ export default function CreatePasswordContent() {
       ) : (
         <form onSubmit={handleSubmit} className="space-y-8">
           {error && (
-            <div className="bg-red-500 bg-opacity-10 border border-red-500 text-red-500 px-4 py-3 rounded-lg text-sm mb-4">
+            <div className="bg-red-500 bg-opacity-10 border border-red-500 text-white px-4 py-3 rounded-lg text-sm mb-4">
               {error}
             </div>
           )}
